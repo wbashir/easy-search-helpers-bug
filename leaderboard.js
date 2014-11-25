@@ -2,6 +2,12 @@
 // it is backed by a MongoDB collection named "players".
 
 Players = new Meteor.Collection("players");
+// on Client and Server
+Players.helpers({
+  output: function(){
+    return "hello world";
+  }
+});
 
 var categories = ["Genius", "Geek", "Hipster", "Gangster", "Worker"]
 
@@ -114,7 +120,7 @@ if (Meteor.isServer) {
 
     if (Players.find().count() === 0) {
       // one hunderd thousand docs :O
-      for (var i = 0; i < 100 * 1000; i++) {
+      for (var i = 0; i < 10; i++) {
         console.log(i + ' doc indexed');
         Players.insert({
           name: Random.choice(first_names) + ' ' + Random.choice(last_names),
@@ -152,3 +158,4 @@ EasySearch.createSearchIndex('players', {
     return query;
   }
 });
+
